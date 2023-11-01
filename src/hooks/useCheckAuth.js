@@ -21,5 +21,5 @@ export const useCheckAuth = () => {
       setRole("");
       localStorage.clear();
     }
-  }, [token]);
+  }, [token, setIsAuthenticated, setRole]);
 };
