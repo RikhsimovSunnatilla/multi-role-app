@@ -1,62 +1,45 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import cx from "classnames";
 
+import { UserContext } from "../../context/user";
+import useLinks from "./useLinks";
+import useLogOut from "../../hooks/useLogOut";
 import styles from "./Sidebar.module.css";
 
-const links = [
-  {
-    href: "/",
-    title: "Dashboard",
-    iconClassname: "bi bi-house",
-  },
-  {
-    href: "/transactions",
-    title: "Transactions",
-    iconClassname: "bi bi-coin",
-  },
-  {
-    href: "/orders",
-    title: "Orders",
-    iconClassname: "bi bi-cart3",
-  },
-  {
-    href: "/users",
-    title: "Users",
-    iconClassname: "bi bi-people",
-  },
-  {
-    href: "/statistics",
-    title: "Statistics",
-    iconClassname: "bi bi-pie-chart",
-  },
-  {
-    href: "/notifications",
-    title: "Notifications",
-    iconClassname: "bi bi-bell",
-  },
-];
-
 export const Sidebar = () => {
+  const { logOut } = useLogOut();
+  const { role } = useContext(UserContext);
+  const links = useLinks(role);
+
   return (
     <div className={cx(styles.container, "border-end")}>
       <div className="pt-3 pb-1 px-3">
-        <h6>Role: Super Admin</h6>
+        <h6>
+          Role:
+          <span className="text-capitalize"> {role}</span>
+        </h6>
       </div>
+
       <hr className="text-black-50" />
 
       <div className="d-flex flex-column bg-white ">
-        {links.map((link) => (
-          <Link to={link.href} key={link.href} className={cx(styles.link, "d-flex align-items-center py-2 px-3")}>
-            <i className={cx(link.iconClassname, "fs-5 text-secondary")} />
-            <span className={cx(styles.linkText)}>{link.title}</span>
+        {links.map((item) => (
+          <Link
+            to={item.href}
+            key={item.href}
+            className={cx(styles.link, "d-flex align-items-center py-2 px-3", { [styles.disabled]: item.disabled })}>
+            <i className={cx(item.iconClassname, "fs-5 text-secondary")} />
+            <span className={cx(styles.linkText, "text-dark")}>{item.title}</span>
           </Link>
         ))}
       </div>
+
       <hr className="text-black-50" />
-      <div className={cx(styles.link, "d-flex align-items-center py-2 px-3")}>
+
+      <div onClick={logOut} role="button" className={cx(styles.link, "d-flex align-items-center py-2 px-3")}>
         <i className="bi bi-box-arrow-right fs-5 text-secondary" />
-        <span className={cx(styles.linkText)}>Log out</span>
+        <span className={cx(styles.linkText, "text-dark")}>Log out</span>
       </div>
     </div>
   );

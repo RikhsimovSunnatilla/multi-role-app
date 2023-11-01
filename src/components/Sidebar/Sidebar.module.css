@@ -1,13 +1,16 @@
 .container {
   width: 250px;
-  /* background-color: #8dc069; */
 }
 
 .link:hover {
   background-color: #ececec;
 }
 
+.link.disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
 .linkText {
-  color: #000;
   margin-left: 28px;
 }

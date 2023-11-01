@@ -2,14 +2,16 @@ import { BrowserRouter } from "react-router-dom";
 
 import { Routes } from "./routes";
 import { AuthProvider } from "./context/auth";
-import logo from "./logo.svg";
+import { UserProvider } from "./context/user";
 
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
+      <UserProvider>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
+      </UserProvider>
     </AuthProvider>
   );
 }

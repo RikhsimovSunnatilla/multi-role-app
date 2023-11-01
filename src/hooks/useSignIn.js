@@ -1,22 +1,24 @@
 import { useContext } from "react";
 
 import { AuthContext } from "../context/auth";
-import { signIn } from "../services/api/signIn";
+import { getUsers } from "../services/api/users";
 
 const useSignIn = () => {
   const { setIsAuthenticated } = useContext(AuthContext);
 
   const triggerSignIn = async (formData) => {
-    return await signIn(formData)
-      .then(() => {
-        localStorage.setItem("token", formData.email);
-        setIsAuthenticated(true);
-      })
-      .catch((err) => {
-        localStorage.clear();
-        console.error(err);
-        setIsAuthenticated(false);
-      });
+    const users = await getUsers();
+
+    const foundUser = users.find((user) => user.email === formData.email);
+
+    if (foundUser) {
+      localStorage.setItem("token", foundUser.id);
+      setIsAuthenticated(true);
+    } else {
+      alert("User not found :(");
+      localStorage.clear();
+      setIsAuthenticated(false);
+    }
   };
 
   return {

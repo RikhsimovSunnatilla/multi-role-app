@@ -4,7 +4,7 @@ import { Routes as DOMRoutes, Route } from "react-router-dom";
 import { AuthLayout } from "../layouts/AuthLayout/AuthLayout";
 import { DashboardLayout } from "../layouts/DashboardLayout/DashboardLayout";
 import { SignIn as SignInPage } from "../pages/SignIn/SignIn";
-import { Error as ErrorPage } from "../pages/Error/Error";
+import { NotFound as NotFoundPage } from "../pages/NotFound/NotFound";
 
 import { AuthContext } from "../context/auth";
 import { useCheckAuth } from "../hooks/useCheckAuth";
@@ -41,7 +41,7 @@ export const Routes = () => {
     },
     {
       path: "*",
-      element: <ErrorPage />,
+      element: <NotFoundPage />,
     },
   ];
 
@@ -59,7 +59,7 @@ export const Routes = () => {
         <AuthLayout>
           <DOMRoutes>
             <Route path="/" element={<SignInPage />} />
-            <Route path="*" element={<ErrorPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </DOMRoutes>
         </AuthLayout>
       )}
