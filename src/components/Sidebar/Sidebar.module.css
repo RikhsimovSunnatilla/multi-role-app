@@ -1,0 +1,13 @@
+.container {
+  width: 250px;
+  /* background-color: #8dc069; */
+}
+
+.link:hover {
+  background-color: #ececec;
+}
+
+.linkText {
+  color: #000;
+  margin-left: 28px;
+}
